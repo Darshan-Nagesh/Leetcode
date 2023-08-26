@@ -94,7 +94,97 @@ void insertpos(){
     display();
 }
 
+void deletebeg(){
+    struct node *temp;
+    temp = head;
+    if(head == NULL)
+        printf("\nList is epmpty");
+    else{
+        head=head->next;
+        free(temp);
+        display();
+    }
+}
 
+void deleteend(){
+    struct node *temp, *prev;
+    temp = head;
+    if(head == NULL)
+        printf("\nList is empty");
+    else{
+        while(temp->next!= NULL){
+            prev = temp;
+            temp=temp->next;
+        }
+        prev->next = NULL;
+        free(temp);
+        display();
+    }
+}
+
+void deletepos(){
+    struct node *temp;
+    temp = head;
+    int count=0, pos, i=1;
+    if(head == NULL)
+        printf("\nList is empty");
+    else{
+        while(temp!=NULL){
+            temp=temp->next;
+            count++;
+        }
+        printf("\nEnter the position to delete : ");
+        scanf("%d",&pos);
+        if(pos > count){
+            printf("\nInvalid position");
+        }
+        else{
+            struct node *prev;
+            temp = head;
+            while(i<pos){
+                prev = temp;
+                temp=temp->next;
+                i++;
+            }
+            prev->next = temp->next;
+            free(temp);
+            display();
+        }
+    }
+}
+
+void reverse(){
+    struct node *next, *cur, *prev;
+    next = cur = head;
+    prev = NULL;
+    while(next!=NULL){
+        next = next->next;
+        cur->next = prev;
+        prev = cur;
+        cur = next;
+    }
+    head = prev;
+    display();
+}
+
+void sort(){
+    struct node *temp, *sort;
+    temp = head;
+    int x;
+    while(temp!=NULL){
+        sort = temp->next;
+        while(sort!=NULL){
+            if(temp->data > sort->data){
+                x = temp->data;
+                temp->data = sort->data;
+                sort->data = x;
+            }
+            sort = sort->next;
+        }
+        temp = temp->next;
+    }
+    display();
+}
 
 int main(){
     int n, ch;
@@ -108,6 +198,11 @@ int main(){
             case 1 : insertbeg(); break;
             case 2 : insertend(); break;
             case 3 : insertpos(); break;
+            case 4 : deletebeg(); break;
+            case 5 : deleteend(); break;
+            case 6 : deletepos(); break;
+            case 7 : reverse(); break;
+            case 8 : sort(); break;
             case 9 : display(); break;
             case 0 : exit(0); break;
             default : printf("Enter valid choice"); break;
