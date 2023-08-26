@@ -186,13 +186,35 @@ void sort(){
     display();
 }
 
+void search(){
+    struct node *temp;
+    int key, count=1, flag=0;
+    temp = head;
+    if(head==NULL){
+        printf("\nEmpty list");
+    }
+    else{
+        printf("\nEnter key to search : "); scanf("%d",&key);
+        while(temp!=NULL){
+            if(temp->data == key){
+                count++;
+                printf("\n%d found at %d",key,count);
+                flag = 1;
+            }
+            temp = temp->next;
+        }
+        if(!flag)
+            printf("%d not found",key);
+    }
+}
+
 int main(){
     int n, ch;
     printf("Enter no. of nodes to be created : ");
     scanf("%d",&n);
     create(n);
     do{
-        printf("\n1. Insert at beg\n2. Insert at end\n3. Insert at pos\n4. Delete at beg\n5. Delete at end\n6. Delete at pos\n7. Reverse\n8. Sort\n9. Display\n0. Exit\nEnter your choice : ");
+        printf("\n1. Insert at beg\n2. Insert at end\n3. Insert at pos\n4. Delete at beg\n5. Delete at end\n6. Delete at pos\n7. Reverse\n8. Sort\n9. Search\n10. Display\n0. Exit\nEnter your choice : ");
         scanf("%d",&ch);
         switch(ch){
             case 1 : insertbeg(); break;
@@ -203,7 +225,8 @@ int main(){
             case 6 : deletepos(); break;
             case 7 : reverse(); break;
             case 8 : sort(); break;
-            case 9 : display(); break;
+            case 9 : search(); break;
+            case 10 : display(); break;
             case 0 : exit(0); break;
             default : printf("Enter valid choice"); break;
         }
